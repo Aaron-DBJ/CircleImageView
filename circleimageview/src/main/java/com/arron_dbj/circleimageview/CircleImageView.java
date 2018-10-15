@@ -132,8 +132,10 @@ public class CircleImageView extends View {
 
     private void initPaint(){
         mPaint = new Paint();
+        mPaint.setAntiAlias(true);
         shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mBorderPaint = new Paint();
+        mBorderPaint.setAntiAlias(true);
         mBorderPaint.setColor(borderColor);
         mBorderPaint.setStrokeWidth(borderWidth);
         mBorderPaint.setStyle(Paint.Style.STROKE);
