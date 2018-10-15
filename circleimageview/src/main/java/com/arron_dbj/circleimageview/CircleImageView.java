@@ -169,7 +169,7 @@ public class CircleImageView extends View {
 
     private void drawBorder(Canvas canvas){
         if (borderWidth == 0){
-            mBorderPaint.setAlpha(255);
+            mBorderPaint.setAlpha(0);
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
         }
         if (borderWidth > 10){
