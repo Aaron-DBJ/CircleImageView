@@ -134,7 +134,7 @@ public class CircleImageView extends View {
         mBorderPaint.setColor(strokeBorderColor);
         mBorderPaint.setStrokeWidth(borderWidth);
         mBorderPaint.setStyle(Paint.Style.STROKE);
-
+        Log.d("BorderWidth", borderWidth+"");
     }
 
     /**
@@ -169,11 +169,20 @@ public class CircleImageView extends View {
         if (borderWidth == 0){
             mBorderPaint.setAlpha(0);
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
-        }else if (borderWidth > 10){
+        }else if (borderWidth > 15 && borderWidth< dp2px(getContext(), 15)){
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 20, mBorderPaint);
-        }else {
+        }else if (borderWidth >= dp2px(getContext(), 15)){
+            mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 25, mBorderPaint);
+        } else{
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
         }
         Log.d("MainActivity", "Draw succeed.");
+    }
+
+    private int dp2px(Context context, int dpValue){
+        float scale = context.getResources().getDisplayMetrics().density;
+        Log.d("dp2px", (int) (dpValue*scale + 0.5f)+"");
+        return (int) (dpValue*scale + 0.5f);
     }
 }

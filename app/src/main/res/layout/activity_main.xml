@@ -18,7 +18,7 @@
     <com.arron_dbj.circleimageview.CircleImageView
         android:layout_gravity="center_horizontal"
         app:src="@drawable/girlincar"
-        app:borderWidth="4dp"
+        app:borderWidth="5dp"
         app:borderColor="#ff0000"
         android:layout_width="100dp"
         android:layout_height="100dp" />
