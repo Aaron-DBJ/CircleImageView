@@ -3,10 +3,10 @@
 一个可以显示圆形图像和圆角矩形图像的控件。
 
 ## 效果图
-
-
-![圆形图像，borderWidth="0dp"](C:\Users\jenny\Pictures\Saved Pictures\borderwidth_0dp.jpg)
 不带边框的圆形图像。
+
+![圆形图像，borderWidth="0dp"](https://github.com/Aaron-DBJ/CircleImageView/tree/master/app/src/main/res/drawable-v24/borderwidth_0dp.jpg)
+
 
 ![圆形视图，borderWidth="1dp"](C:\Users\jenny\Pictures\Saved Pictures\borderwidth_1dp.jpg)
 边框宽度为1dp的圆形图像。
