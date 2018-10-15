@@ -13,7 +13,7 @@
 ![圆形视图，borderWidth="6dp"]((https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_6dp.jpg)
 
 边框宽度为15dp的圆形图像。
-![圆形视图，borderWidth="15dp"](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_15dp.jpg)
+![圆形视图，borderWidth="15dp"](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/boederwidth_15dp.jpg)
 
 圆角矩形，圆角半径10dp。
 ![圆角矩形视图，圆角半径10dp]((https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/roundrectangle.jpg)
