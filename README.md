@@ -17,7 +17,7 @@
 
 圆角矩形，圆角半径10dp。
 ![圆角矩形视图，圆角半径10dp]((https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/roundRectangle.jpg)
-圆角矩形，圆角半径10dp。
+
 
 ## Gradle
 
