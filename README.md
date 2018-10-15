@@ -5,16 +5,17 @@
 ## 效果图
 不带边框的圆形图像。
 ![圆形图像，borderWidth="0dp"](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_0dp.jpg)
-                                        
+
+边框宽度为1dp的圆形图像。                           
 ![圆形视图，borderWidth="1dp"](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_1dp.jpg)
-边框宽度为1dp的圆形图像。
 
-![圆形视图，borderWidth="6dp"]((https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_6dp.jpg)
 边框宽度为6dp的圆形图像。
+![圆形视图，borderWidth="6dp"]((https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_6dp.jpg)
 
-![圆形视图，borderWidth="15dp"](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_15dp.jpg)
 边框宽度为15dp的圆形图像。
+![圆形视图，borderWidth="15dp"](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/borderwidth_15dp.jpg)
 
+圆角矩形，圆角半径10dp。
 ![圆角矩形视图，圆角半径10dp]((https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/roundRectangle.jpg)
 圆角矩形，圆角半径10dp。
 
