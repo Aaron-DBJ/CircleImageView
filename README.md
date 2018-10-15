@@ -4,25 +4,21 @@
 
 ## 效果图
 
-不带边框的圆形图像。
 
 ![圆形图像，borderWidth="0dp"](C:\Users\jenny\Pictures\Saved Pictures\borderwidth_0dp.jpg)
-
-边框宽度为1dp的圆形图像。
+不带边框的圆形图像。
 
 ![圆形视图，borderWidth="1dp"](C:\Users\jenny\Pictures\Saved Pictures\borderwidth_1dp.jpg)
-
-边框宽度为6dp的圆形图像。
+边框宽度为1dp的圆形图像。
 
 ![圆形视图，borderWidth="6dp"](C:\Users\jenny\Pictures\Saved Pictures\borderwidth_6dp.jpg)
-
-边框宽度为15dp的圆形图像。
+边框宽度为6dp的圆形图像。
 
 ![圆形视图，borderWidth="15dp"](C:\Users\jenny\Pictures\Saved Pictures\boederwidth_15dp.jpg)
-
-圆角矩形，圆角半径10dp。
+边框宽度为15dp的圆形图像。
 
 ![圆角矩形视图，圆角半径10dp](C:\Users\jenny\Pictures\Saved Pictures\roundrectangle.jpg)
+圆角矩形，圆角半径10dp。
 
 ## Gradle
 
