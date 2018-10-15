@@ -47,7 +47,7 @@ public class CircleImageView extends View {
     /**
      * 边框颜色
      */
-    private int strokeBorderColor = Color.TRANSPARENT;
+    private int borderColor = Color.TRANSPARENT;
     /**
      * 圆形视图的圆心x轴坐标
      */
@@ -124,17 +124,19 @@ public class CircleImageView extends View {
         }
         roundRadius = typedArray.getDimension(R.styleable.CircleImageView_roundRadius, 0);
         borderWidth = typedArray.getDimension(R.styleable.CircleImageView_borderWidth, 0);
-        strokeBorderColor = typedArray.getColor(R.styleable.CircleImageView_borderColor, Color.BLACK);
+        borderColor = typedArray.getColor(R.styleable.CircleImageView_borderColor, Color.BLACK);
         //必须调用recycle方法来回收typearray，以便以后复用
         typedArray.recycle();
+        initPaint();
+    }
 
+    private void initPaint(){
         mPaint = new Paint();
         shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mBorderPaint = new Paint();
-        mBorderPaint.setColor(strokeBorderColor);
+        mBorderPaint.setColor(borderColor);
         mBorderPaint.setStrokeWidth(borderWidth);
         mBorderPaint.setStyle(Paint.Style.STROKE);
-
     }
 
     /**
@@ -144,7 +146,7 @@ public class CircleImageView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //使用变换矩阵，将BitmapShader变换到与控件大小相同
+        //使用变换矩阵，将BitmapShader变换到与控件宽或高相同
         Matrix matrix = new Matrix();
         float scaleX = (float) getWidth() / bitmap.getWidth();
         float scaleY = (float) getHeight() / bitmap.getHeight();
@@ -159,14 +161,22 @@ public class CircleImageView extends View {
         if (enumShapeStyle == 0){
             //这里减10主要是使圆形视图缩小一点，为边框留出空间
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mPaint);
-            if (borderWidth > 5){
-                canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 15, mBorderPaint);
-            }else {
-                canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
-            }
-            Log.d("MainActivity", "Draw succeed.");
+            drawBorder(canvas);
         }else if (enumShapeStyle == 1) {
             canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadius, roundRadius, mPaint);
         }
     }
+
+    private void drawBorder(Canvas canvas){
+        if (borderWidth == 0){
+            mBorderPaint.setAlpha(255);
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
+        }
+        if (borderWidth > 10){
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 20, mBorderPaint);
+        }else {
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
+        }
+    }
+
 }

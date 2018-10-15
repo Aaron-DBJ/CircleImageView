@@ -159,14 +159,21 @@ public class CircleImageView extends View {
         if (enumShapeStyle == 0){
             //这里减10主要是使圆形视图缩小一点，为边框留出空间
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mPaint);
-            if (borderWidth > 5){
-                canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 15, mBorderPaint);
-            }else {
-                canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
-            }
-            Log.d("MainActivity", "Draw succeed.");
+            drawBorder(canvas);
         }else if (enumShapeStyle == 1) {
             canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadius, roundRadius, mPaint);
         }
+    }
+
+    private void drawBorder(Canvas canvas){
+        if (borderWidth == 0){
+            mBorderPaint.setAlpha(0);
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
+        }else if (borderWidth > 10){
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 20, mBorderPaint);
+        }else {
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
+        }
+        Log.d("MainActivity", "Draw succeed.");
     }
 }
