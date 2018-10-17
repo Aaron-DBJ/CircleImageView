@@ -179,7 +179,8 @@ public class CircleImageView extends View {
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mPaint);
             drawBorder(canvas);
         }else if (enumShapeStyle == 1) {
-            canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadiusX, roundRadiusY, mPaint);
+            float halfStrokeWidth = borderWidth / 2;
+            canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth()-halfStrokeWidth, getHeight()-halfStrokeWidth), roundRadiusX, roundRadiusY, mPaint);
             drawBorder(canvas);
         }
     }
@@ -228,12 +229,12 @@ public class CircleImageView extends View {
             float halfStrokeWidth = borderWidth / 2;
             canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
                     getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
-        }else if (borderWidth <= dp2px(getContext(), 15)) {
+        }else if (borderWidth <= dp2px(getContext(), 20)) {
             float halfStrokeWidth = borderWidth / 2;
             canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
                     getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
         }else {
-            mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
+            mBorderPaint.setStrokeWidth(dp2px(getContext(), 20));
             float halfStrokeWidth = borderWidth / 2;
             canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
                     getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
