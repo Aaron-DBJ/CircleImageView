@@ -33,7 +33,7 @@
         app:roundRadiusX="10dp"
         app:roundRadiusY="10dp"
         app:borderColor="#000000"
-        app:borderWidth="15dp"
+        app:borderWidth="0dp"
         android:layout_width="100dp"
         android:layout_height="100dp" />
     <com.arron_dbj.circleimageview.CircleImageView

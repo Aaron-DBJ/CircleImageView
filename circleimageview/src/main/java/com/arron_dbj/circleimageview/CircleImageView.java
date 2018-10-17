@@ -187,43 +187,71 @@ public class CircleImageView extends View {
     private void drawBorder(Canvas canvas){
         switch (getShapeStyle()) {
             case 0:
-                if (borderWidth == 0) {
-                    mBorderPaint.setAlpha(0);
-                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
-                } else if (borderWidth > 15 && borderWidth < dp2px(getContext(), 15)) {
-                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 20, mBorderPaint);
-                } else if (borderWidth >= dp2px(getContext(), 15)) {
-                    mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
-                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 25, mBorderPaint);
-                } else {
-                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
-                }
+                setCircleBorder(canvas);
                 break;
             case 1:
-                /**
-                 * 直接这样绘制圆角矩形边框会发现四个圆角的线宽要大于四边直线线宽。
-                 * 出现这种问题的原因是，使用Style.Stroke绘制粗线，基准线在中线，
-                 * stroke边由中线向内外扩展。直接以矩形的最外一圈作为基准线，
-                 * 导致直线边只能绘制向里的一半线宽。
-                 */
-                if (borderWidth <= dp2px(getContext(), 15)) {
-                    float halfStrokeWidth = borderWidth / 2;
-                    canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
-                            getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
-                }else {
-                    mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
-                    float halfStrokeWidth = borderWidth / 2;
-                    canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
-                            getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
-                }
+                setRoundRectBorder(canvas);
                 break;
         }
     }
+
+    /**
+     * 根据不同情况设置圆形边框的宽度并画出边框
+     * @param canvas
+     */
+    private void setCircleBorder(Canvas canvas){
+        if (borderWidth == 0) {
+            mBorderPaint.setAlpha(0);
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
+        } else if (borderWidth > 15 && borderWidth < dp2px(getContext(), 15)) {
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 20, mBorderPaint);
+        } else if (borderWidth >= dp2px(getContext(), 15)) {
+            mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 25, mBorderPaint);
+        } else {
+            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
+        }
+    }
+    /**
+     * 根据不同情况设置圆角矩形边框的宽度并画出边框
+     * @param canvas
+     */
+    private void setRoundRectBorder(Canvas canvas){
+        /**
+         * 直接这样绘制圆角矩形边框会发现四个圆角的线宽要大于四边直线线宽。
+         * 出现这种问题的原因是，使用Style.Stroke绘制粗线，基准线在中线，
+         * stroke边由中线向内外扩展。直接以矩形的最外一圈作为基准线，
+         * 导致直线边只能绘制向里的一半线宽。
+         */
+        if (borderWidth == 0){
+            mBorderPaint.setAlpha(0);
+            float halfStrokeWidth = borderWidth / 2;
+            canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
+                    getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
+        }else if (borderWidth <= dp2px(getContext(), 15)) {
+            float halfStrokeWidth = borderWidth / 2;
+            canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
+                    getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
+        }else {
+            mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
+            float halfStrokeWidth = borderWidth / 2;
+            canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
+                    getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
+        }
+    }
+
+    /**
+     * 将dp长度转化为px长度
+     * @param context
+     * @param dpValue
+     * @return pxValue
+     */
     private int dp2px(Context context, int dpValue){
         float scale = context.getResources().getDisplayMetrics().density;
         Log.d("dp2px", (int) (dpValue*scale + 0.5f)+"");
         return (int) (dpValue*scale + 0.5f);
     }
+
     private int getShapeStyle(){
         return enumShapeStyle;
     }
