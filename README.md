@@ -16,7 +16,7 @@
 ![圆形视图，borderWidth="15dp"](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/15dp.jpg)
 
 圆角矩形边框效果图，允许设置最大边框宽度20dp
-![圆角矩形边框效果图](https://github.com/AaronDBJ/CircleImageView/blob/master/screenshots/multiborder_roundRect.jpg)
+![圆角矩形边框效果图](https://github.com/Aaron-DBJ/CircleImageView/blob/master/screenshots/multiborder_roundRect.jpg)
 ## Gradle
 
 ```Java
