@@ -20,38 +20,49 @@ public class CircleImageView extends View {
      * 图形画笔
      */
     private Paint mPaint;
+
     /**
      * 绘制在所画区域的贴图
      */
     private Bitmap bitmap;
+
     /**
      * 图片着色器
      */
     private BitmapShader shader;
+
     /**
      * 绘制边框的画笔
      */
     private Paint mBorderPaint;
+
     /**
      * 图形形状，0表示圆形，1表示圆角矩形
      */
     private int enumShapeStyle = 0;
+
     /**
-     * 圆角半径，暂时长半轴和短半轴设置为一样
+     * 圆角半径，长半轴和短半轴
      */
-    private float roundRadius = 5;
+    private float roundRadiusX = 5;
+
+    private float roundRadiusY = 5;
+
     /**
      * 边框宽度
      */
     private float borderWidth = 0;
+
     /**
      * 边框颜色
      */
     private int borderColor = Color.TRANSPARENT;
+
     /**
      * 圆形视图的圆心x轴坐标
      */
     float circleX;
+
     /**
      * 圆形视图的圆心y轴坐标
      */
@@ -73,6 +84,7 @@ public class CircleImageView extends View {
         super(context, attrs);
         init(context, attrs);
     }
+
 
     /**
      * 主要用来处理视图宽或高为wrap_content的情况
@@ -120,9 +132,11 @@ public class CircleImageView extends View {
         bitmap = BitmapFactory.decodeResource(getResources(), bitmapId);
         enumShapeStyle = typedArray.getInt(R.styleable.CircleImageView_shapeStyle, 0);
         if (enumShapeStyle == 1){
-            roundRadius = typedArray.getDimension(R.styleable.CircleImageView_roundRadius, 5);
+            roundRadiusX = typedArray.getDimension(R.styleable.CircleImageView_roundRadiusX, 5);
+            roundRadiusY = typedArray.getDimension(R.styleable.CircleImageView_roundRadiusY, 5);
         }
-        roundRadius = typedArray.getDimension(R.styleable.CircleImageView_roundRadius, 0);
+        roundRadiusX = typedArray.getDimension(R.styleable.CircleImageView_roundRadiusX, 0);
+        roundRadiusY = typedArray.getDimension(R.styleable.CircleImageView_roundRadiusY, 0);
         borderWidth = typedArray.getDimension(R.styleable.CircleImageView_borderWidth, 0);
         borderColor = typedArray.getColor(R.styleable.CircleImageView_borderColor, Color.BLACK);
         //必须调用recycle方法来回收typearray，以便以后复用
@@ -165,22 +179,44 @@ public class CircleImageView extends View {
             canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mPaint);
             drawBorder(canvas);
         }else if (enumShapeStyle == 1) {
-            canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadius, roundRadius, mPaint);
+            canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadiusX, roundRadiusY, mPaint);
+            drawBorder(canvas);
         }
     }
 
     private void drawBorder(Canvas canvas){
-        if (borderWidth == 0){
-            mBorderPaint.setAlpha(0);
-            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
-        }else if (borderWidth > 15 && borderWidth < dp2px(getContext(), 15)){
-            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 20, mBorderPaint);
-        }
-        else if (borderWidth >= dp2px(getContext(), 15)){
-            mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
-            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 25, mBorderPaint);
-        }else {
-            canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
+        switch (getShapeStyle()) {
+            case 0:
+                if (borderWidth == 0) {
+                    mBorderPaint.setAlpha(0);
+                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2), mBorderPaint);
+                } else if (borderWidth > 15 && borderWidth < dp2px(getContext(), 15)) {
+                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 20, mBorderPaint);
+                } else if (borderWidth >= dp2px(getContext(), 15)) {
+                    mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
+                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 25, mBorderPaint);
+                } else {
+                    canvas.drawCircle(circleX, circleY, Math.min(getWidth() / 2, getHeight() / 2) - 10, mBorderPaint);
+                }
+                break;
+            case 1:
+                /**
+                 * 直接这样绘制圆角矩形边框会发现四个圆角的线宽要大于四边直线线宽。
+                 * 出现这种问题的原因是，使用Style.Stroke绘制粗线，基准线在中线，
+                 * stroke边由中线向内外扩展。直接以矩形的最外一圈作为基准线，
+                 * 导致直线边只能绘制向里的一半线宽。
+                 */
+                if (borderWidth <= dp2px(getContext(), 15)) {
+                    float halfStrokeWidth = borderWidth / 2;
+                    canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
+                            getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
+                }else {
+                    mBorderPaint.setStrokeWidth(dp2px(getContext(), 15));
+                    float halfStrokeWidth = borderWidth / 2;
+                    canvas.drawRoundRect(new RectF(halfStrokeWidth, halfStrokeWidth, getWidth() - halfStrokeWidth,
+                            getHeight() - halfStrokeWidth), roundRadiusX, roundRadiusY, mBorderPaint);
+                }
+                break;
         }
     }
     private int dp2px(Context context, int dpValue){
@@ -188,5 +224,7 @@ public class CircleImageView extends View {
         Log.d("dp2px", (int) (dpValue*scale + 0.5f)+"");
         return (int) (dpValue*scale + 0.5f);
     }
-
+    private int getShapeStyle(){
+        return enumShapeStyle;
+    }
 }

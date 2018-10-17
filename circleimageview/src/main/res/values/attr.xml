@@ -8,6 +8,7 @@
             <enum name="circle" value="0"/>
             <enum name="roundRect" value="1"/>
         </attr>
-        <attr name="roundRadius" format="dimension"/>
+        <attr name="roundRadiusX" format="dimension"/>
+        <attr name="roundRadiusY" format="dimension"/>
     </declare-styleable>
 </resources>
