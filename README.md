@@ -22,7 +22,7 @@
 ```Java
 dependencies {
     ...
-    implementation 'com.github.aaron_dbj:circleimageview:1.0.4'
+    implementation 'com.github.aaron_dbj:circleimageview:2.0.1'
 }
 ```
 
